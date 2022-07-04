@@ -7,4 +7,8 @@
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary btn-block">Convert</button>
     </form>
+
+    {% if converted_amount %}
+        {{ converted_amount }}
+    {% endif %}
 {% endblock %}
