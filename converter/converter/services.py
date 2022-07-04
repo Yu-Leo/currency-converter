@@ -1,7 +1,7 @@
 import requests
-from . import exceptions
+from django.conf import settings
 
-API_URL = 'https://api.exchangerate-api.com/v4/latest/USD'
+from . import exceptions
 
 
 def get_currencies_values() -> dict[str, float]:
@@ -9,7 +9,7 @@ def get_currencies_values() -> dict[str, float]:
     :return: dictionary with currencies from API
     """
     try:
-        resource = requests.get(url=API_URL).json()
+        resource = requests.get(url=settings.EXCHANGE_RATE_API_URL).json()
         return resource.get('rates')
     except:
         raise exceptions.APIException
@@ -23,4 +23,7 @@ def convert(amount: float, from_currency: str, to_currency: str, currencies: dic
     :param currencies: dictionary from API
     :return: amount in 'to_currency' currency
     """
-    return round((currencies[to_currency] / currencies[from_currency]) * amount, 2)
+    try:
+        return round((currencies[to_currency] / currencies[from_currency]) * amount, 2)
+    except ZeroDivisionError:
+        raise exceptions.ExchangeRateException
