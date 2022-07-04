@@ -1,8 +1,9 @@
 from django.shortcuts import render
 
-from .forms import ExchangeForm
-from . import services
 from . import exceptions
+from . import services
+from .forms import ExchangeForm
+
 
 def converter(request):
     try:
@@ -19,10 +20,14 @@ def converter(request):
             amount = round(form_data['amount'], 2)
             from_currency = form_data['from_currency']
             to_currency = form_data['to_currency']
-            converted_amount = services.convert(amount,
-                                                from_currency,
-                                                to_currency,
-                                                currencies_values)
+            try:
+                converted_amount = services.convert(amount,
+                                                    from_currency,
+                                                    to_currency,
+                                                    currencies_values)
+            except exceptions.APIException:
+                return render(request, 'converter/error_page.html', {})
+
             context = {
                 'form': form,
                 'amount': amount,
