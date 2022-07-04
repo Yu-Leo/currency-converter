@@ -6,7 +6,9 @@ from . import exceptions
 
 def get_currencies_values() -> dict[str, float]:
     """
-    :return: dictionary with currencies from API
+    :return: dictionary with currencies from API.
+    Key - name of currency
+    Value - value of the currency in dollars (USD)
     """
     try:
         resource = requests.get(url=settings.EXCHANGE_RATE_API_URL).json()
