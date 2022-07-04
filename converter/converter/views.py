@@ -2,10 +2,14 @@ from django.shortcuts import render
 
 from .forms import ExchangeForm
 from . import services
-
+from . import exceptions
 
 def converter(request):
-    currencies_values = services.get_currencies_values()
+    try:
+        currencies_values = services.get_currencies_values()
+    except exceptions.APIException:
+        return render(request, 'converter/error_page.html', {})
+
     currencies_list = currencies_values.keys()
 
     if request.method == 'POST':

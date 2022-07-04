@@ -1,4 +1,5 @@
 import requests
+from . import exceptions
 
 API_URL = 'https://api.exchangerate-api.com/v4/latest/USD'
 
@@ -7,8 +8,11 @@ def get_currencies_values() -> dict[str, float]:
     """
     :return: dictionary with currencies from API
     """
-    resource = requests.get(url=API_URL).json()
-    return resource.get('rates')
+    try:
+        resource = requests.get(url=API_URL).json()
+        return resource.get('rates')
+    except:
+        raise exceptions.APIException
 
 
 def convert(amount: float, from_currency: str, to_currency: str, currencies: dict[str, float]) -> float:
