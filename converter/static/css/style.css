@@ -1,0 +1,52 @@
+body {
+    height: 100vh;
+    background: #cfffc8;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.form-wrap {
+    border-radius: 10px;
+    border: 2px solid #357500;
+    box-shadow: 1px 6px 20px #3ce117, 0px 51px 69px rgb(23 18 43 / 59%);
+}
+
+.submit-btn {
+    text-align: center;
+}
+
+.card-body {
+    margin: auto;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.card-footer {
+    justify-content: center;
+    text-align: center;
+    font-size: 22px;
+}
+
+.btn-green {
+    background: #49cc2e;
+    color: #000;
+}
+
+@media (min-width: 481px) {
+    .card {
+        max-width: 1000px;
+        min-width: 600px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        max-width: 1000px;
+    }
+}
