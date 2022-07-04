@@ -12,12 +12,18 @@ def converter(request):
         form = ExchangeForm(request.POST, currencies=currencies_list)
         if form.is_valid():
             form_data = form.cleaned_data
-            converted_amount = services.convert(form_data['amount'],
-                                                form_data['from_currency'],
-                                                form_data['to_currency'],
+            amount = float(form_data['amount'])
+            from_currency = form_data['from_currency']
+            to_currency = form_data['to_currency']
+            converted_amount = services.convert(amount,
+                                                from_currency,
+                                                to_currency,
                                                 currencies_values)
             context = {
                 'form': form,
+                'amount': amount,
+                'from_currency': from_currency,
+                'to_currency': to_currency,
                 'converted_amount': converted_amount,
             }
         else:

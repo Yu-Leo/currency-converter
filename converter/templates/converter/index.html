@@ -1,14 +1,29 @@
+{% extends 'base.html' %}
 {% block content %}
-    <h1> Currency converter </h1>
+    <div class="container">
+        <div class="row">
+            <div class="card box-shadow m-2 form-wrap">
+                <div class="card-header text-center">
+                    <h3>Currency converter</h3>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'home' %}" method="post" class="p-3">
+                        {% csrf_token %}
 
-    <form action="{% url 'home' %}" method="post">
-        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-green btn-block">Convert</button>
+                    </form>
+                </div>
+                {% if converted_amount %}
+                    <div class="card-footer">
+                       {{ amount }} {{ from_currency }} = <b>{{ converted_amount }}</b> {{ to_currency }}
+                    </div>
+                {% endif %}
 
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary btn-block">Convert</button>
-    </form>
 
-    {% if converted_amount %}
-        {{ converted_amount }}
-    {% endif %}
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}
