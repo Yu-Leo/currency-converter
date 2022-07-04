@@ -11,7 +11,7 @@ def get_currencies_values() -> dict[str, float]:
     return resource.get('rates')
 
 
-def convert(amount: float, from_currency: str, to_currency: str, currencies: dict) -> float:
+def convert(amount: float, from_currency: str, to_currency: str, currencies: dict[str, float]) -> float:
     """
     :param amount: amount to be converted
     :param from_currency: currency of the amount to be converted
