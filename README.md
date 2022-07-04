@@ -72,7 +72,7 @@ Using [exchangerate-api.com](https://www.exchangerate-api.com/)
 
 - Programming language: **Python (3.10.4)**
 - Frameworks and libraries:
-    - **Django (3.1.14)**
+    - **Django (4.0.5)**
 
 #### FrontEnd:
 
