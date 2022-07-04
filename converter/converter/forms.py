@@ -2,7 +2,7 @@ from django import forms
 
 
 class ExchangeForm(forms.Form):
-    amount = forms.IntegerField()
+    amount = forms.FloatField()
     from_currency = forms.ChoiceField()
     to_currency = forms.ChoiceField()
 
