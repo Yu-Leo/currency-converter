@@ -45,19 +45,43 @@ Using [exchangerate-api.com](https://www.exchangerate-api.com/)
         ```
     * Option 2
         - [Download ZIP](https://github.com/Yu-Leo/currency-converter/archive/refs/heads/main.zip)
-2. Create a virtual environment in the project repository
+2. Config [required environment variables](#envvars)
+    - Create `.env` file with values for **production** mode
+    - Create `.env.dev` file with values for **development** mode
+
+Now you can:
+
+- Run in **production** mode using docker-compose
+- Run in **development** mode using docker-compose
+- Configure for development on local machine
+
+### Run in **production** mode using docker-compose:
+
+```bash
+docker-compose up --build
+```
+
+### Run in **development** mode using docker-compose:
+
+```bash
+docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
+```
+
+### Configure for development in local machine:
+
+1. Create a virtual environment in the project repository
     ```bash
     python3 -m venv venv
     ```
-3. Activate the virtual environment
+2. Activate the virtual environment
     ```bash
     source venv/bin/activate
     ```
-4. Install project dependencies
+3. Install project dependencies
     ```bash
     pip install -r requirements.txt
     ```
-5. Run the server
+4. Run the server on a local machine
     ```bash
     cd converter
     python manage.py runserver
@@ -84,7 +108,16 @@ Using [exchangerate-api.com](https://www.exchangerate-api.com/)
 - Frameworks and libraries:
     - **Bootstrap 5**
 
+#### Tools:
+
+- Docker and Docker Compose
+
 ### :wrench: Settings
+
+#### Required environment variables:
+
+- `DJANGO_DEBUG` - Run in DEBUG mode or not (set 1 or 0). Default 0.
+- `DJANGO_SECRET_KEY` - SECRET_KEY for the Django config
 
 #### config/settings.py
 
