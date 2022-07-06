@@ -114,6 +114,8 @@ docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
 
 ### :wrench: Settings
 
+<a id="envvars"></a>
+
 #### Required environment variables:
 
 - `DJANGO_DEBUG` - Run in DEBUG mode or not (set 1 or 0). Default 0.
