@@ -45,7 +45,7 @@ Using [exchangerate-api.com](https://www.exchangerate-api.com/)
         ```
     * Option 2
         - [Download ZIP](https://github.com/Yu-Leo/currency-converter/archive/refs/heads/main.zip)
-2. Config [required environment variables](#envvars)
+2. Set the values of the [required environment variables](#envvars)
     - Create `.env` file with values for **production** mode
     - Create `.env.dev` file with values for **development** mode
 
