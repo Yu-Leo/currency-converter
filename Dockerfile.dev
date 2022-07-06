@@ -7,5 +7,3 @@ COPY . .
 # Dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-
-RUN python ./converter/manage.py collectstatic --noinput
