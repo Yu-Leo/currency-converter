@@ -53,7 +53,7 @@ Now you can:
 
 - Run in **production** mode using docker-compose
 - Run in **development** mode using docker-compose
-- Configure for development on local machine
+- Configure for development and run on a local machine
 
 ### Run in **production** mode using docker-compose:
 
@@ -67,7 +67,7 @@ docker-compose up --build
 docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
 ```
 
-### Configure for development on local machine:
+### Configure for development and run on a local machine:
 
 1. Create a virtual environment in the project repository
     ```bash
