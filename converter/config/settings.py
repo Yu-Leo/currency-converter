@@ -1,19 +1,22 @@
 import os.path
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+# Load environment variables if they don't exist (for development in local machine)
+if 'DJANGO_SECRET_KEY' not in os.environ:
+    load_dotenv(dotenv_path=Path(os.path.join(os.path.dirname(BASE_DIR), '.env')))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-042$@)g47j01ys%3r*xd_w)6_z696(yw*dm9&$%ua(7h^3)4_8'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.getenv('DJANGO_DEBUG', default=0)))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
 
 # Application definition
 
