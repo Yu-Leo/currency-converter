@@ -67,7 +67,7 @@ docker-compose up --build
 docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
 ```
 
-### Configure for development in local machine:
+### Configure for development on local machine:
 
 1. Create a virtual environment in the project repository
     ```bash
