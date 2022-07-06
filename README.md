@@ -43,7 +43,8 @@ Using [exchangerate-api.com](https://www.exchangerate-api.com/)
         git clone https://github.com/Yu-Leo/currency-converter.git
         cd currency-converter
         ```
-    * Option 2 - [Download ZIP](https://github.com/Yu-Leo/currency-converter/archive/refs/heads/main.zip)
+    * Option 2
+        - [Download ZIP](https://github.com/Yu-Leo/currency-converter/archive/refs/heads/main.zip)
 2. Create a virtual environment in the project repository
     ```bash
     python3 -m venv venv
@@ -66,6 +67,8 @@ Using [exchangerate-api.com](https://www.exchangerate-api.com/)
 
 ## :computer: Source code
 
+### [Technical documentation](./docs/README.md)
+
 ### :wrench: Technologies
 
 #### BackEnd:
@@ -80,22 +83,6 @@ Using [exchangerate-api.com](https://www.exchangerate-api.com/)
 - Language: **html**, **css**
 - Frameworks and libraries:
     - **Bootstrap 5**
-
-### :file_folder: Folders and files
-
-- **converter** - project source code
-    - **config** - project settings
-    - **templates** - project templates
-    - **static** - project static files
-    - **converter** - the main Django application of the project
-        - **migrations** - migration files
-        - **services** - business logic of the application
-        - **tests** - tests
-        - **exceptions.py** - custom exceptions
-        - **forms.py** - forms and their settings
-        - **urls.py** - application URL settings
-        - **views.py** - controllers
-- **docs** - documentation
 
 ### :wrench: Settings
 
