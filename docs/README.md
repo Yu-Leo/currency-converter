@@ -20,7 +20,7 @@ Simple currency converter website using Django framework.
 If there are any errors in getting list of exchange rates from exchange rate
 API, backend shows the user a page with information that an error has occurred
 
-## Architecture
+## :orange_book: Architecture
 
 ![module_diagram.jpg](./img/module_diagram.jpg)
 
@@ -39,5 +39,7 @@ API, backend shows the user a page with information that an error has occurred
         - **urls.py** - application URL settings
         - **views.py** - controllers
 - **docs** - documentation
-
-
+- **docker-compose.dev.yaml** - docker-compose config for **development**
+- **docker-compose.yaml** - docker-compose config for **production**
+- **Dockerfile.dev** - docker config for **development**
+- **Dockerfile** - docker config for **production**
