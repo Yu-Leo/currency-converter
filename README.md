@@ -23,8 +23,6 @@
 
 Simple currency converter website.
 
-Using [exchangerate-api.com](https://www.exchangerate-api.com/)
-
 <a id="chapter-1"></a>
 
 ## :camera: Interface
