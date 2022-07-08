@@ -20,6 +20,12 @@ Simple currency converter website using Django framework.
 If there are any errors in getting list of exchange rates from exchange rate
 API, backend shows the user a page with information that an error has occurred
 
+### Exchange Rate API
+
+Service: [exchangerate-api.com](https://www.exchangerate-api.com/)
+
+Request: `https://api.exchangerate-api.com/v4/latest/USD`
+
 ## :orange_book: Architecture
 
 ![module_diagram.jpg](./img/module_diagram.jpg)
