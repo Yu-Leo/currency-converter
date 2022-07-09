@@ -1,7 +1,26 @@
+from typing import NamedTuple
+
 import requests
 from django.conf import settings
 
 from . import exceptions
+
+
+class Operation(NamedTuple):
+    amount: float
+    from_currency: str
+    to_currency: str
+
+
+def get_currencies_list() -> list[str]:
+    """
+    :return: list with currencies from API.
+    """
+    try:
+        resource = requests.get(url=settings.EXCHANGE_RATE_API_URL).json()
+        return resource.get('rates').keys()
+    except:
+        raise exceptions.APIException
 
 
 def get_currencies_values() -> dict[str, float]:
@@ -26,6 +45,6 @@ def convert(amount: float, from_currency: str, to_currency: str, currencies: dic
     :return: amount in 'to_currency' currency
     """
     try:
-        return round((currencies[to_currency] / currencies[from_currency]) * amount, 2)
+        return round((currencies[to_currency] / currencies[from_currency]) * amount, 6)
     except ZeroDivisionError:
         raise exceptions.ExchangeRateException

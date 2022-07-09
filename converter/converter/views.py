@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.shortcuts import render
 
 from . import exceptions
@@ -7,38 +8,42 @@ from .forms import ExchangeForm
 
 def converter(request):
     try:
-        currencies_values = services.get_currencies_values()
+        currencies_list = services.get_currencies_list()
     except exceptions.APIException:
         return render(request, 'converter/error_page.html', {})
 
-    currencies_list = currencies_values.keys()
-
     if request.method == 'POST':
         form = ExchangeForm(request.POST, currencies=currencies_list)
-        if form.is_valid():
-            form_data = form.cleaned_data
-            amount = round(form_data['amount'], 2)
-            from_currency = form_data['from_currency']
-            to_currency = form_data['to_currency']
-            try:
-                converted_amount = services.convert(amount,
-                                                    from_currency,
-                                                    to_currency,
-                                                    currencies_values)
-            except exceptions.APIException:
-                return render(request, 'converter/error_page.html', {})
+        try:
+            operation = form.get_operation()
+        except ValidationError:
+            context = {
+                'form': form,
+            }
+            return render(request, 'converter/index.html', context)
 
-            context = {
-                'form': form,
-                'amount': amount,
-                'from_currency': from_currency,
-                'to_currency': to_currency,
-                'converted_amount': converted_amount,
-            }
-        else:
-            context = {
-                'form': form,
-            }
+        try:
+            currencies_values = services.get_currencies_values()
+        except exceptions.APIException:
+            return render(request, 'converter/error_page.html', {})
+
+        try:
+            converted_amount = services.convert(operation.amount,
+                                                operation.from_currency,
+                                                operation.to_currency,
+                                                currencies_values)
+        except exceptions.ExchangeRateException:
+            return render(request, 'converter/error_page.html', {})
+
+        context = {
+            'form': form,
+            'amount': operation.amount,
+            'from_currency': operation.from_currency,
+            'to_currency': operation.to_currency,
+            'converted': True,
+            'converted_amount': converted_amount,
+        }
+
     else:
         form = ExchangeForm(currencies=currencies_list)
         context = {
