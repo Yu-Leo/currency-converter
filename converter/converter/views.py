@@ -1,15 +1,14 @@
 from django.core.exceptions import ValidationError
 from django.shortcuts import render
 
-import services
+from . import services
 from .forms import ExchangeForm
-from .services import exceptions
 
 
 def converter(request):
     try:
         currencies_list = services.get_currencies_list()
-    except exceptions.APIException:
+    except services.exceptions.APIException:
         return render(request, 'converter/error_page.html', {})
 
     if request.method == 'POST':
@@ -24,7 +23,7 @@ def converter(request):
 
         try:
             currencies_values = services.get_currencies_values()
-        except exceptions.APIException:
+        except services.exceptions.APIException:
             return render(request, 'converter/error_page.html', {})
 
         try:
@@ -32,7 +31,7 @@ def converter(request):
                                                 operation.from_currency,
                                                 operation.to_currency,
                                                 currencies_values)
-        except exceptions.ExchangeRateException:
+        except services.exceptions.ExchangeRateException:
             return render(request, 'converter/error_page.html', {})
 
         context = {

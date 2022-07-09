@@ -2,7 +2,6 @@ from django.test import TestCase
 from django.urls import reverse
 
 from . import services
-from .services import exceptions
 
 
 class ServicesTestCase(TestCase):
@@ -48,7 +47,7 @@ class ServicesTestCase(TestCase):
             'EUR': 0,
             'RUB': 25.00,
         }
-        with self.assertRaises(exceptions.ExchangeRateException):
+        with self.assertRaises(services.exceptions.ExchangeRateException):
             result = services.convert(amount, from_currency, to_currency, currencies)
 
 
