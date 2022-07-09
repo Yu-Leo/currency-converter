@@ -2,11 +2,11 @@ from typing import NamedTuple
 
 import requests
 
-from ExchangeRateAPI import ExchangeRateAPI
-from IDatabase import IDatabase
-from RedisDatabase import RedisDatabase
 from . import exceptions
 from . import settings
+from .ExchangeRateAPI import ExchangeRateAPI
+from .IDatabase import IDatabase
+from .RedisDatabase import RedisDatabase
 
 
 class Operation(NamedTuple):

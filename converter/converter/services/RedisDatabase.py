@@ -1,6 +1,6 @@
 import redis
 
-from IDatabase import IDatabase
+from .IDatabase import IDatabase
 
 
 class RedisDatabase(IDatabase):
