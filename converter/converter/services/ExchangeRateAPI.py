@@ -1,8 +1,8 @@
 import requests
 
-from IExchangeRateAPI import IExchangeRateAPI
 from . import exceptions
 from . import settings
+from .IExchangeRateAPI import IExchangeRateAPI
 
 
 class ExchangeRateAPI(IExchangeRateAPI):
