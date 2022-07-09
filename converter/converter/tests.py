@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from . import exceptions
 from . import services
+from .services import exceptions
 
 
 class ServicesTestCase(TestCase):
