@@ -1,9 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.shortcuts import render
 
-from . import exceptions
-from . import services
+import services
 from .forms import ExchangeForm
+from .services import exceptions
 
 
 def converter(request):
