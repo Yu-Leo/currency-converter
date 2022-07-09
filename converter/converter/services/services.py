@@ -19,12 +19,6 @@ def get_currencies_list() -> list[str]:
     """
     :return: list with currencies from API.
     """
-    # try:
-    #     resource = requests.get(url=settings.EXCHANGE_RATE_API_URL).json()
-    #     return resource.get('rates').keys()
-    # except:
-    #     raise exceptions.APIException
-    #
     database: IDatabase = RedisDatabase(host=settings.REDIS_HOST,
                                         port=settings.REDIS_PORT,
                                         db=settings.REDIS_DB)
@@ -33,9 +27,7 @@ def get_currencies_list() -> list[str]:
 
     api = ExchangeRateAPI()
     database.set_list(api.get_currencies_list())
-
-    for key, value in api.get_currencies_values().items():
-        database.set_value(key, value)
+    database.set_values(api.get_currencies_values())
 
 
 def get_currencies_values() -> dict[str, float]:
