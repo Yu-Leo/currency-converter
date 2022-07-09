@@ -1,7 +1,9 @@
+import os
+
 # Redis settings
-REDIS_HOST = '123'
-REDIS_PORT = 123
-REDIS_DB = 0
+REDIS_HOST = os.getenv('REDIS_HOST')
+REDIS_PORT = int(os.getenv('REDIS_PORT'))
+REDIS_DB = int(os.getenv('REDIS_PORT', default='0'))
 
 # Exchange rate API:
 EXCHANGE_RATE_API_URL = 'https://api.exchangerate-api.com/v4/latest/USD'

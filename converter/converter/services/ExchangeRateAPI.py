@@ -13,7 +13,7 @@ class ExchangeRateAPI(IExchangeRateAPI):
     def __init__(self):
         try:
             resource = requests.get(url=settings.EXCHANGE_RATE_API_URL).json()
-            self._currencies_values = resource.get('rates').keys()
+            self._currencies_values = resource.get('rates')
         except:
             raise exceptions.APIException
 
