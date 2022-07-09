@@ -34,6 +34,10 @@ class IDatabase(ABC):
         pass
 
     @abstractmethod
+    def is_list_exists(self) -> bool:
+        pass
+
+    @abstractmethod
     def get_list(self) -> list[str]:
         """
         :return: list with names of currencies

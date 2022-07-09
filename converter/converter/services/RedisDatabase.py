@@ -28,5 +28,8 @@ class RedisDatabase(IDatabase):
     def set_list(self, currencies_list: list[str]) -> None:
         self._redis_client.sadd(name=self._CURRENCY_LIST_NAME, *currencies_list)
 
+    def is_list_exists(self) -> bool:
+        return bool(self._redis_client.exists(self._CURRENCY_LIST_NAME))
+
     def get_list(self) -> list[str]:
         return self._redis_client.smembers(name=self._CURRENCY_LIST_NAME)
