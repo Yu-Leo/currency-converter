@@ -20,6 +20,10 @@ class RedisDatabase(IDatabase):
     def set_value(self, key: str, value: float) -> None:
         self._redis_client.set(name=key, value=value)
 
+    def set_values(self, values: dict[str, float]) -> None:
+        for key, value in values.items():
+            self.set_value(key, value)
+
     def get_value(self, key: str) -> float:
         return self._redis_client.get(name=key)
 

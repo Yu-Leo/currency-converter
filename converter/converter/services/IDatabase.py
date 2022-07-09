@@ -17,6 +17,14 @@ class IDatabase(ABC):
         pass
 
     @abstractmethod
+    def set_values(self, values: dict[str, float]) -> None:
+        """
+        :param values: dict with pairs:
+        name of currency - the cost of one dollar (USD) in the currency
+        """
+        pass
+
+    @abstractmethod
     def get_value(self, key: str) -> float:
         """
         :param key: name of currency
