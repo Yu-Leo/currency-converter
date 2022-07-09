@@ -1,9 +1,12 @@
 from typing import NamedTuple
 
 import requests
-from django.conf import settings
 
+from ExchangeRateAPI import ExchangeRateAPI
+from IDatabase import IDatabase
+from RedisDatabase import RedisDatabase
 from . import exceptions
+from . import settings
 
 
 class Operation(NamedTuple):
@@ -16,11 +19,23 @@ def get_currencies_list() -> list[str]:
     """
     :return: list with currencies from API.
     """
-    try:
-        resource = requests.get(url=settings.EXCHANGE_RATE_API_URL).json()
-        return resource.get('rates').keys()
-    except:
-        raise exceptions.APIException
+    # try:
+    #     resource = requests.get(url=settings.EXCHANGE_RATE_API_URL).json()
+    #     return resource.get('rates').keys()
+    # except:
+    #     raise exceptions.APIException
+    #
+    database: IDatabase = RedisDatabase(host=settings.REDIS_HOST,
+                                        port=settings.REDIS_PORT,
+                                        db=settings.REDIS_DB)
+    if database.is_list_exists():
+        return database.get_list()
+
+    api = ExchangeRateAPI()
+    database.set_list(api.get_currencies_list())
+
+    for key, value in api.get_currencies_values():
+        database.set_value(key, value)
 
 
 def get_currencies_values() -> dict[str, float]:
