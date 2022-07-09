@@ -10,7 +10,7 @@ class RedisDatabase(IDatabase):
     _CURRENCY_LIST_NAME = 'currencies'
 
     def __init__(self, host: str, port: int, db: int):
-        self._redis_client = redis.Redis(host=host, port=port, db=db)
+        self._redis_client = redis.Redis(host=host, port=port, db=db, decode_responses=True)
 
     def __del__(self):
         self._redis_client.close()
@@ -32,4 +32,4 @@ class RedisDatabase(IDatabase):
         return bool(self._redis_client.exists(self._CURRENCY_LIST_NAME))
 
     def get_list(self) -> list[str]:
-        return self._redis_client.smembers(name=self._CURRENCY_LIST_NAME)
+        return sorted(list(self._redis_client.smembers(name=self._CURRENCY_LIST_NAME)))

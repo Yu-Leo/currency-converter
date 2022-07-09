@@ -34,7 +34,7 @@ def get_currencies_list() -> list[str]:
     api = ExchangeRateAPI()
     database.set_list(api.get_currencies_list())
 
-    for key, value in api.get_currencies_values():
+    for key, value in api.get_currencies_values().items():
         database.set_value(key, value)
 
 
