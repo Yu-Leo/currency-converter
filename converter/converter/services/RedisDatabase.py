@@ -7,6 +7,7 @@ class RedisDatabase(IDatabase):
     """
     Class for working with Redis database
     """
+    _CURRENCY_LIST_NAME = 'currencies'
 
     def __init__(self, host: str, port: int, db: int):
         self._redis_client = redis.Redis(host=host, port=port, db=db)
@@ -25,7 +26,7 @@ class RedisDatabase(IDatabase):
     # Currencies list
 
     def set_list(self, currencies_list: list[str]) -> None:
-        pass
+        self._redis_client.sadd(name=self._CURRENCY_LIST_NAME, *currencies_list)
 
     def get_list(self) -> list[str]:
-        pass
+        return self._redis_client.smembers(name=self._CURRENCY_LIST_NAME)
