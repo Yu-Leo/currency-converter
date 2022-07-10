@@ -1,3 +1,4 @@
+import datetime
 from typing import NamedTuple
 
 from . import exceptions
@@ -24,8 +25,11 @@ def get_currencies_list() -> list[str]:
         return database.get_currencies_list()
 
     api = ExchangeRateAPI()
+    database.set_date(api.get_date())
     database.set_currencies_list(api.get_currencies_list())
     database.set_currencies_values(api.get_currencies_values())
+
+    return database.get_currencies_list()
 
 
 def convert(operation: Operation) -> float:
@@ -39,14 +43,19 @@ def _get_currencies_values(primary_currency, secondary_currency) -> tuple[float,
                                         port=settings.REDIS_PORT,
                                         db=settings.REDIS_DB)
 
+    is_currency_value_exists = database.is_currency_value_exists(primary_currency) and \
+                               database.is_currency_value_exists(secondary_currency)
+    is_todays_date_in_database = database.get_date() == datetime.date.today()
+
+    if not is_currency_value_exists or is_currency_value_exists and not is_todays_date_in_database:
+        api = ExchangeRateAPI()
+        database.set_date(api.get_date())
+        database.set_currencies_list(api.get_currencies_list())
+        database.set_currencies_values(api.get_currencies_values())
+
     primary_currency_value = database.get_currency_value(primary_currency)
     secondary_currency_value = database.get_currency_value(secondary_currency)
     return primary_currency_value, secondary_currency_value
-    # try:
-    #     resource = requests.get(url=settings.EXCHANGE_RATE_API_URL).json()
-    #     return resource.get('rates')
-    # except:
-    #     raise exceptions.APIException
 
 
 def _calculate(amount: float, primary_currency_value: float, secondary_currency_values: float) -> float:

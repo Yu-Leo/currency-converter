@@ -1,3 +1,4 @@
+import datetime
 from abc import ABC, abstractmethod
 
 
@@ -13,6 +14,13 @@ class IDatabase(ABC):
         """
         :param key: name of currency
         :param value: the cost of one dollar (USD) in the currency
+        """
+        pass
+
+    @abstractmethod
+    def is_currency_value_exists(self, key: str) -> bool:
+        """
+        :param key: name of currency
         """
         pass
 
@@ -50,4 +58,14 @@ class IDatabase(ABC):
         """
         :return: list with names of currencies
         """
+        pass
+
+    # Date
+
+    @abstractmethod
+    def set_date(self, date: datetime.date) -> None:
+        pass
+
+    @abstractmethod
+    def get_date(self) -> datetime.date | None:
         pass
