@@ -79,7 +79,11 @@ docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
     ```bash
     pip install -r requirements.txt
     ```
-4. Run the server on a local machine
+4. Run Docker container with Redis
+   ```bash
+   docker run -p 6379:6379 redis:7.0-alpine 
+   ```
+5. Run the server on a local machine
     ```bash
     cd converter
     python manage.py runserver
