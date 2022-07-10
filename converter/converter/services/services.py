@@ -11,8 +11,8 @@ from .RedisDatabase import RedisDatabase
 
 class Operation(NamedTuple):
     amount: float
-    from_currency: str
-    to_currency: str
+    primary_currency: str
+    secondary_currency: str
 
 
 def get_currencies_list() -> list[str]:
@@ -30,7 +30,13 @@ def get_currencies_list() -> list[str]:
     database.set_currencies_values(api.get_currencies_values())
 
 
-def get_currencies_values() -> dict[str, float]:
+def convert(operation: Operation) -> float:
+    currencies_values = _get_currencies_values()
+    return _calculate(operation.amount, operation.primary_currency,
+                      operation.secondary_currency, currencies_values)
+
+
+def _get_currencies_values() -> dict[str, float]:
     """
     :return: dictionary with currencies from API.
     Key - name of currency
@@ -43,15 +49,11 @@ def get_currencies_values() -> dict[str, float]:
         raise exceptions.APIException
 
 
-def convert(amount: float, from_currency: str, to_currency: str, currencies: dict[str, float]) -> float:
+def _calculate(amount: float, primary_currency: str, secondary_currency: str, currencies: dict[str, float]) -> float:
     """
     :param amount: amount to be converted
-    :param from_currency: currency of the amount to be converted
-    :param to_currency: currency to convert to
-    :param currencies: dictionary from API
-    :return: amount in 'to_currency' currency
     """
     try:
-        return round((currencies[to_currency] / currencies[from_currency]) * amount, 6)
+        return round((currencies[secondary_currency] / currencies[primary_currency]) * amount, 6)
     except ZeroDivisionError:
         raise exceptions.ExchangeRateException

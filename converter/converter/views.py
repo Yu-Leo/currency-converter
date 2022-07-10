@@ -22,23 +22,15 @@ def converter(request):
             return render(request, 'converter/index.html', context)
 
         try:
-            currencies_values = services.get_currencies_values()
-        except services.exceptions.APIException:
-            return render(request, 'converter/error_page.html', {})
-
-        try:
-            converted_amount = services.convert(operation.amount,
-                                                operation.from_currency,
-                                                operation.to_currency,
-                                                currencies_values)
+            converted_amount = services.convert(operation)
         except services.exceptions.ExchangeRateException:
             return render(request, 'converter/error_page.html', {})
 
         context = {
             'form': form,
             'amount': operation.amount,
-            'from_currency': operation.from_currency,
-            'to_currency': operation.to_currency,
+            'primary_currency': operation.primary_currency,
+            'secondary_currency': operation.secondary_currency,
             'converted': True,
             'converted_amount': converted_amount,
         }

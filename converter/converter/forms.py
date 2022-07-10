@@ -6,15 +6,15 @@ from .services import Operation
 
 class ExchangeForm(forms.Form):
     amount = forms.FloatField()
-    from_currency = forms.ChoiceField()
-    to_currency = forms.ChoiceField()
+    primary_currency = forms.ChoiceField()
+    secondary_currency = forms.ChoiceField()
 
     def __init__(self, *args, **kwargs):
         currencies_list = kwargs.pop('currencies')
         self.currencies = tuple(zip(currencies_list, currencies_list))
         super(ExchangeForm, self).__init__(*args, **kwargs)
-        self.fields['to_currency'].choices = self.currencies
-        self.fields['from_currency'].choices = self.currencies
+        self.fields['secondary_currency'].choices = self.currencies
+        self.fields['primary_currency'].choices = self.currencies
 
     def get_operation(self) -> Operation:
         if not self.is_valid():
@@ -22,6 +22,6 @@ class ExchangeForm(forms.Form):
 
         form_data = self.cleaned_data
         amount = round(form_data['amount'], 2)
-        from_currency = form_data['from_currency']
-        to_currency = form_data['to_currency']
-        return Operation(amount, from_currency, to_currency)
+        primary_currency = form_data['primary_currency']
+        secondary_currency = form_data['secondary_currency']
+        return Operation(amount, primary_currency, secondary_currency)

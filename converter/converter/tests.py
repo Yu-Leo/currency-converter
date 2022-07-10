@@ -13,42 +13,42 @@ class ServicesTestCase(TestCase):
 
     def test_successful_convert_1(self):
         amount = 1
-        from_currency = 'USD'
-        to_currency = 'RUB'
+        primary_currency = 'USD'
+        secondary_currency = 'RUB'
         currencies = {
             'USD': 1.00,
             'RUB': 25.00,
         }
 
-        result = services.convert(amount, from_currency, to_currency, currencies)
+        result = services.convert(amount, primary_currency, secondary_currency, currencies)
 
         self.assertEqual(result, 25.00)
 
     def test_successful_convert_2(self):
         amount = 1
-        from_currency = 'EUR'
-        to_currency = 'RUB'
+        primary_currency = 'EUR'
+        secondary_currency = 'RUB'
         currencies = {
             'USD': 1.00,
             'EUR': 0.959,
             'RUB': 25.00,
         }
 
-        result = services.convert(amount, from_currency, to_currency, currencies)
+        result = services.convert(amount, primary_currency, secondary_currency, currencies)
 
         self.assertEqual(result, 26.07)
 
     def test_unsuccessful_convert(self):
         amount = 1
-        from_currency = 'EUR'
-        to_currency = 'RUB'
+        primary_currency = 'EUR'
+        secondary_currency = 'RUB'
         currencies = {
             'USD': 1.00,
             'EUR': 0,
             'RUB': 25.00,
         }
         with self.assertRaises(services.exceptions.ExchangeRateException):
-            result = services.convert(amount, from_currency, to_currency, currencies)
+            result = services.convert(amount, primary_currency, secondary_currency, currencies)
 
 
 class ConvertViewTestCase(TestCase):
@@ -62,8 +62,8 @@ class ConvertViewTestCase(TestCase):
     def test_post_with_correct_form(self):
         data = {
             'amount': '1',
-            'from_currency': 'USD',
-            'to_currency': 'RUB',
+            'primary_currency': 'USD',
+            'secondary_currency': 'RUB',
         }
         response = self.client.post(reverse('home'), data=data)
         self.assertEqual(response.status_code, 200)
