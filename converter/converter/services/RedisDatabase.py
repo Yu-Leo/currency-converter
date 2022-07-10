@@ -25,7 +25,7 @@ class RedisDatabase(IDatabase):
             self.set_currency_value(key, value)
 
     def get_currency_value(self, key: str) -> float:
-        return self._redis_client.get(name=key)
+        return float(self._redis_client.get(name=key))
 
     # Currencies list
 
