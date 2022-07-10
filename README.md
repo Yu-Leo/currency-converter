@@ -41,8 +41,7 @@ Simple currency converter website.
         git clone https://github.com/Yu-Leo/currency-converter.git
         cd currency-converter
         ```
-    * Option 2
-        - [Download ZIP](https://github.com/Yu-Leo/currency-converter/archive/refs/heads/main.zip)
+    * Option 2 - [Download ZIP](https://github.com/Yu-Leo/currency-converter/archive/refs/heads/main.zip)
 2. Set the values of the [required environment variables](#envvars)
     - Create `.env` file with values for **production** mode
     - Create `.env.dev` file with values for **development** mode
@@ -93,12 +92,13 @@ docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
 
 ## :computer: Source code
 
-### [Technical documentation](./docs/README.md)
+### :books: [Technical documentation](./docs/README.md)
 
 ### :wrench: Technologies
 
 #### BackEnd:
 
+- DBMS: **Redis**
 - Programming language: **Python (3.10.4)**
 - Frameworks and libraries:
     - **Django (4.0.5)**
@@ -122,8 +122,13 @@ docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
 
 - `DJANGO_DEBUG` - Run in DEBUG mode or not (set 1 or 0). Default 0.
 - `DJANGO_SECRET_KEY` - SECRET_KEY for the Django config
+- Settings for Redis:
+    - `REDIS_HOST` - database host (`redis` for run using docker-compose and `127.0.0.1` for run on a local
+      machine)
+    - `REDIS_PORT` - database port (default `6379`)
+    - `REDIS_DB` - database index (default `0`)
 
-#### config/settings.py
+#### services/settings.py
 
 - `EXCHANGE_RATE_API_URL` - link to the exchange rate API
 
@@ -151,10 +156,8 @@ coverage run ./manage.py test converter.tests && coverage html
 
 ## :open_hands: License
 
-If you use my code, put a star ⭐️ on the repository
-
 Author: [Yu-Leo](https://github.com/Yu-Leo)
 
-GNU General Public License v3.0
+[GNU General Public License v3.0](./LICENSE)
 
-Full text in [LICENSE](LICENSE)
+If you use my code, please put a star ⭐️ on the repository
