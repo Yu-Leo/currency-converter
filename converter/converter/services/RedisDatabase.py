@@ -20,7 +20,7 @@ class RedisDatabase(IDatabase):
     def set_currency_value(self, key: str, value: float) -> None:
         self._redis_client.set(name=key, value=value)
 
-    def set_currency_values(self, values: dict[str, float]) -> None:
+    def set_currencies_values(self, values: dict[str, float]) -> None:
         for key, value in values.items():
             self.set_currency_value(key, value)
 
