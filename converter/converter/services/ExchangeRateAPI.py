@@ -17,8 +17,8 @@ class ExchangeRateAPI(IExchangeRateAPI):
             resource = requests.get(url=settings.EXCHANGE_RATE_API_URL).json()
             self._currencies_values = resource.get('rates')
             self._date = resource.get('date')
-        except:
-            raise exceptions.APIException
+        except Exception:
+            raise exceptions.GettingDataError
 
     def get_currencies_values(self) -> dict[str, float]:
         return self._currencies_values

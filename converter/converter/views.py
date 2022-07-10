@@ -10,7 +10,7 @@ from .forms import ExchangeForm
 def converter(request):
     try:
         currencies_list = services.get_currencies_list()
-    except services.exceptions.APIException:
+    except services.exceptions.GettingDataError:
         return render(request, 'converter/error_page.html', {})
 
     if request.method == 'POST':
