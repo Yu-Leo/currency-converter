@@ -7,28 +7,16 @@ class IDatabase(ABC):
     Interface for classes working with database
     """
 
-    # Currencies values
-
-    @abstractmethod
-    def set_currency_value(self, key: str, value: float) -> None:
-        """
-        :param key: name of currency
-        :param value: the cost of one dollar (USD) in the currency
-        """
+    def set_all_data(self, date: datetime.date, currencies_list: list[str],
+                     currencies_values: dict[str, float]) -> None:
         pass
+
+    # Currencies values
 
     @abstractmethod
     def is_currency_value_exists(self, key: str) -> bool:
         """
         :param key: name of currency
-        """
-        pass
-
-    @abstractmethod
-    def set_currencies_values(self, values: dict[str, float]) -> None:
-        """
-        :param values: dict with pairs:
-        name of currency - the cost of one dollar (USD) in the currency
         """
         pass
 
@@ -43,13 +31,6 @@ class IDatabase(ABC):
     # Currencies list
 
     @abstractmethod
-    def set_currencies_list(self, currencies_list: list[str]) -> None:
-        """
-        :param currencies_list: list with names of currencies
-        """
-        pass
-
-    @abstractmethod
     def is_currencies_list_exists(self) -> bool:
         pass
 
@@ -61,10 +42,6 @@ class IDatabase(ABC):
         pass
 
     # Date
-
-    @abstractmethod
-    def set_date(self, date: datetime.date) -> None:
-        pass
 
     @abstractmethod
     def get_date(self) -> datetime.date | None:
