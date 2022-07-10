@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.exceptions import ValidationError
 from django.shortcuts import render
 
@@ -33,6 +35,7 @@ def converter(request):
             'secondary_currency': operation.secondary_currency,
             'converted': True,
             'converted_amount': converted_amount,
+            'date': datetime.date.today(),
         }
 
     else:

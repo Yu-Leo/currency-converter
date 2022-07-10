@@ -16,7 +16,13 @@
                 </div>
                 {% if converted %}
                     <div class="card-footer">
-                        {{ amount }} {{ primary_currency }} = <b>{{ converted_amount }}</b> {{ secondary_currency }}
+                        <div>
+                            <span class="date">Date: {{ date |date:'d.m.Y' }}</span>
+                        </div>
+                        <div>
+                            {{ amount }} {{ primary_currency }} = <b>{{ converted_amount }}</b> {{ secondary_currency }}
+                        </div>
+
                     </div>
                 {% endif %}
             </div>

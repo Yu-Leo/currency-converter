@@ -33,6 +33,11 @@ body {
     font-size: 22px;
 }
 
+.date {
+    font-style: italic;
+    font-size: 20px;
+}
+
 .btn-green {
     background: #49cc2e;
     color: #000;
