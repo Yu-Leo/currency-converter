@@ -17,23 +17,23 @@ class RedisDatabase(IDatabase):
 
     # Currencies values
 
-    def set_value(self, key: str, value: float) -> None:
+    def set_currency_value(self, key: str, value: float) -> None:
         self._redis_client.set(name=key, value=value)
 
-    def set_values(self, values: dict[str, float]) -> None:
+    def set_currency_values(self, values: dict[str, float]) -> None:
         for key, value in values.items():
-            self.set_value(key, value)
+            self.set_currency_value(key, value)
 
-    def get_value(self, key: str) -> float:
+    def get_currency_value(self, key: str) -> float:
         return self._redis_client.get(name=key)
 
     # Currencies list
 
-    def set_list(self, currencies_list: list[str]) -> None:
+    def set_currencies_list(self, currencies_list: list[str]) -> None:
         self._redis_client.sadd(self._CURRENCY_LIST_NAME, *currencies_list)
 
-    def is_list_exists(self) -> bool:
+    def is_currencies_list_exists(self) -> bool:
         return bool(self._redis_client.exists(self._CURRENCY_LIST_NAME))
 
-    def get_list(self) -> list[str]:
+    def get_currencies_list(self) -> list[str]:
         return sorted(list(self._redis_client.smembers(name=self._CURRENCY_LIST_NAME)))

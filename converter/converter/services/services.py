@@ -22,12 +22,12 @@ def get_currencies_list() -> list[str]:
     database: IDatabase = RedisDatabase(host=settings.REDIS_HOST,
                                         port=settings.REDIS_PORT,
                                         db=settings.REDIS_DB)
-    if database.is_list_exists():
-        return database.get_list()
+    if database.is_currencies_list_exists():
+        return database.get_currencies_list()
 
     api = ExchangeRateAPI()
-    database.set_list(api.get_currencies_list())
-    database.set_values(api.get_currencies_values())
+    database.set_currencies_list(api.get_currencies_list())
+    database.set_currency_values(api.get_currencies_values())
 
 
 def get_currencies_values() -> dict[str, float]:
