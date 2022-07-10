@@ -14,9 +14,9 @@ class Operation(NamedTuple):
     secondary_currency: str
 
 
-def get_currencies_list() -> list[str]:
+def get_currencies_list() -> tuple[str]:
     """
-    :return: list with currencies from API.
+    :return: tuple with currencies from API.
     """
     try:
         database: IDatabase = RedisDatabase(host=settings.REDIS_HOST,

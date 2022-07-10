@@ -30,7 +30,7 @@ class RedisDatabase(IDatabase):
         return _wrapper
 
     @catch_exceptions
-    def set_all_data(self, date: datetime.date, currencies_list: list[str],
+    def set_all_data(self, date: datetime.date, currencies_list: tuple[str],
                      currencies_values: dict[str, float]) -> None:
         self._set_date(date)
         self._set_currencies_list(currencies_list)
@@ -49,8 +49,8 @@ class RedisDatabase(IDatabase):
         return bool(self._redis_client.exists(self._CURRENCY_LIST_NAME))
 
     @catch_exceptions
-    def get_currencies_list(self) -> list[str]:
-        return sorted(list(self._redis_client.smembers(name=self._CURRENCY_LIST_NAME)))
+    def get_currencies_list(self) -> tuple[str]:
+        return tuple(sorted(list(self._redis_client.smembers(name=self._CURRENCY_LIST_NAME))))
 
     @catch_exceptions
     def get_date(self) -> datetime.date | None:
