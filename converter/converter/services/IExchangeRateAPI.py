@@ -1,3 +1,4 @@
+import datetime
 from abc import ABC, abstractmethod
 
 
@@ -18,5 +19,12 @@ class IExchangeRateAPI(ABC):
     def get_currencies_list(self) -> list[str]:
         """
         :return: list with currencies names
+        """
+        pass
+
+    @abstractmethod
+    def get_date(self) -> datetime.date:
+        """
+        :return: date of request
         """
         pass
