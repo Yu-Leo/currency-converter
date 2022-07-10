@@ -7,7 +7,7 @@ class IDatabase(ABC):
     Interface for classes working with database
     """
 
-    def set_all_data(self, date: datetime.date, currencies_list: list[str],
+    def set_all_data(self, date: datetime.date, currencies_list: tuple[str],
                      currencies_values: dict[str, float]) -> None:
         pass
 
@@ -35,7 +35,7 @@ class IDatabase(ABC):
         pass
 
     @abstractmethod
-    def get_currencies_list(self) -> list[str]:
+    def get_currencies_list(self) -> tuple[str]:
         """
         :return: list with names of currencies
         """
