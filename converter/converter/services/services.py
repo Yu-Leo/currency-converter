@@ -21,13 +21,11 @@ def get_currencies_list() -> list[str]:
     database: IDatabase = RedisDatabase(host=settings.REDIS_HOST,
                                         port=settings.REDIS_PORT,
                                         db=settings.REDIS_DB)
-    if database.is_currencies_list_exists():
-        return database.get_currencies_list()
-
-    api = ExchangeRateAPI()
-    database.set_date(api.get_date())
-    database.set_currencies_list(api.get_currencies_list())
-    database.set_currencies_values(api.get_currencies_values())
+    if not database.is_currencies_list_exists():
+        api = ExchangeRateAPI()
+        database.set_all_data(date=api.get_date(),
+                              currencies_list=api.get_currencies_list(),
+                              currencies_values=api.get_currencies_values())
 
     return database.get_currencies_list()
 
@@ -49,9 +47,9 @@ def _get_currencies_values(primary_currency, secondary_currency) -> tuple[float,
 
     if not is_currency_value_exists or is_currency_value_exists and not is_todays_date_in_database:
         api = ExchangeRateAPI()
-        database.set_date(api.get_date())
-        database.set_currencies_list(api.get_currencies_list())
-        database.set_currencies_values(api.get_currencies_values())
+        database.set_all_data(date=api.get_date(),
+                              currencies_list=api.get_currencies_list(),
+                              currencies_values=api.get_currencies_values())
 
     primary_currency_value = database.get_currency_value(primary_currency)
     secondary_currency_value = database.get_currency_value(secondary_currency)
