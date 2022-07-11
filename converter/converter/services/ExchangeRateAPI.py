@@ -24,7 +24,7 @@ class ExchangeRateAPI(IExchangeRateAPI):
         return self._currencies_values
 
     def get_currencies_list(self) -> tuple[str]:
-        return self._currencies_values.keys()
+        return tuple(self._currencies_values.keys())
 
     def get_date(self) -> datetime.date:
         return datetime.date.fromisoformat(self._date)
