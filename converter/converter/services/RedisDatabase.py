@@ -23,7 +23,7 @@ class RedisDatabase(IDatabase):
     def catch_exceptions(func):
         def _wrapper(*args, **kwargs):
             try:
-                func(*args, **kwargs)
+                return func(*args, **kwargs)
             except redis.RedisError:
                 raise exceptions.DatabaseError
 
@@ -32,6 +32,7 @@ class RedisDatabase(IDatabase):
     @catch_exceptions
     def set_all_data(self, date: datetime.date, currencies_list: tuple[str],
                      currencies_values: dict[str, float]) -> None:
+        self._delete_all_data()
         self._set_date(date)
         self._set_currencies_list(currencies_list)
         self._set_currencies_values(currencies_values)
@@ -50,7 +51,8 @@ class RedisDatabase(IDatabase):
 
     @catch_exceptions
     def get_currencies_list(self) -> tuple[str]:
-        return tuple(sorted(list(self._redis_client.smembers(name=self._CURRENCY_LIST_NAME))))
+        raw_data = self._redis_client.smembers(name=self._CURRENCY_LIST_NAME)
+        return tuple(sorted(map(str, raw_data)))
 
     @catch_exceptions
     def get_date(self) -> datetime.date | None:
@@ -69,9 +71,13 @@ class RedisDatabase(IDatabase):
             self._set_currency_value(key, value)
 
     @catch_exceptions
-    def _set_currencies_list(self, currencies_list: list[str]) -> None:
+    def _set_currencies_list(self, currencies_list: tuple[str]) -> None:
         self._redis_client.sadd(self._CURRENCY_LIST_NAME, *currencies_list)
 
     @catch_exceptions
     def _set_date(self, date: datetime.date) -> None:
         self._redis_client.set(name=self._DATE_FIELD_NAME, value=str(date))
+
+    @catch_exceptions
+    def _delete_all_data(self) -> None:
+        self._redis_client.flushdb()
