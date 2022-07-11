@@ -1,4 +1,6 @@
 import datetime
+import functools
+import logging
 
 from django.core.exceptions import ValidationError
 from django.shortcuts import render
@@ -6,28 +8,31 @@ from django.shortcuts import render
 from . import services
 from .forms import ExchangeForm
 
+logger = logging.getLogger('main')
 
+
+def base_view(func):
+    @functools.wraps(func)
+    def inner(request, *args, **kwargs):
+        try:
+            return func(request, *args, **kwargs)
+        except Exception as e:
+            logger.critical(str(e))
+            return render(request, 'converter/error_page.html', {})
+
+    return inner
+
+
+@base_view
 def converter(request):
-    try:
-        currencies_list = services.get_currencies_list()
-    except services.exceptions.GettingDataError:
-        return render(request, 'converter/error_page.html', {})
-
+    currencies_list = services.get_currencies_list()
     if request.method == 'POST':
         form = ExchangeForm(request.POST, currencies=currencies_list)
         try:
             operation = form.get_operation()
         except ValidationError:
-            context = {
-                'form': form,
-            }
-            return render(request, 'converter/index.html', context)
-
-        try:
-            converted_amount = services.convert(operation)
-        except services.exceptions.ConversionError:
-            return render(request, 'converter/error_page.html', {})
-
+            return render(request, 'converter/index.html', {'form': form, })
+        converted_amount = services.convert(operation)
         context = {
             'form': form,
             'amount': operation.amount,

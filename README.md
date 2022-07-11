@@ -132,6 +132,21 @@ docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
 
 - `EXCHANGE_RATE_API_URL` - link to the exchange rate API
 
+### :mag: Logging
+
+Logs saving to the `converter/logs.log` file.
+
+**Example:**
+
+```
+2022-07-11 07:54:08,096 - ERROR - services.py - database error
+2022-07-11 07:54:08,825 - ERROR - services.py - database error
+2022-07-11 07:54:09,644 - ERROR - services.py - database error
+2022-07-11 07:55:36,672 - ERROR - services.py - database error
+2022-07-11 07:55:37,503 - CRITICAL - services.py - API error
+2022-07-11 07:55:37,503 - CRITICAL - views.py - getting data error
+```
+
 ### :coffee: Tests
 
 Run all tests (run in the outer `converter` folder):
