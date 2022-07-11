@@ -42,7 +42,6 @@ Request: `https://api.exchangerate-api.com/v4/latest/USD`
     - **converter** - the main Django application of the project
         - **migrations** - migration files
         - **services** - business logic of the application and classes for working with database and API
-        - **tests.py** - tests for application
         - **exceptions.py** - custom exceptions
         - **forms.py** - forms and their settings
         - **urls.py** - application URL settings
