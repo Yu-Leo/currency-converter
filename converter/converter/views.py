@@ -25,7 +25,7 @@ def converter(request):
 
         try:
             converted_amount = services.convert(operation)
-        except services.exceptions.ExchangeRateException:
+        except services.exceptions.ConversionError:
             return render(request, 'converter/error_page.html', {})
 
         context = {

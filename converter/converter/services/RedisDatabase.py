@@ -21,6 +21,10 @@ class RedisDatabase(IDatabase):
 
     @staticmethod
     def catch_exceptions(func):
+        """
+        Decorator, which catches all errors related to redis
+        """
+
         def _wrapper(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
