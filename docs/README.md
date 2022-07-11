@@ -1,4 +1,4 @@
-# Currency converter documentation
+# Technical documentation of the "Currency converter" project
 
 ## :page_facing_up: Description
 
@@ -6,19 +6,12 @@ Simple currency converter website using Django framework.
 
 ### Logic:
 
-#### User sends GET request
+![logic_diagram.jpg](./logic_diagram.jpg)
 
-- Backend sends request to exchange rate API and gets list of exchange rates
-- Backend shows received list of currencies to the user
+If there are any errors in getting list of exchange rates from database, backend don't use it and getting data from API.
 
-#### User sends POST request
-
-- Backend sends request to exchange rate API and receives list of exchange rates
-- Backend calculate result
-- Backend shows result to the user
-
-If there are any errors in getting list of exchange rates from exchange rate
-API, backend shows the user a page with information that an error has occurred
+If there are any errors in getting list of exchange rates from exchange rate API, backend shows the user a page with
+information that an error has occurred
 
 ### Exchange Rate API
 
@@ -28,7 +21,17 @@ Request: `https://api.exchangerate-api.com/v4/latest/USD`
 
 ## :orange_book: Architecture
 
-![module_diagram.jpg](./img/module_diagram.jpg)
+### Modules
+
+![module_diagram.jpg](./module_diagram.jpg)
+
+### Classes
+
+![class_diagram.jpg](./class_diagram.jpg)
+
+## :blue_book: Database schema
+
+![database_schema.jpg](./database_schema.jpg)
 
 ## :file_folder: Folders and files
 
@@ -38,7 +41,7 @@ Request: `https://api.exchangerate-api.com/v4/latest/USD`
     - **static** - folder with static files
     - **converter** - the main Django application of the project
         - **migrations** - migration files
-        - **services.py** - business logic of the application
+        - **services** - business logic of the application and classes for working with database and API
         - **tests.py** - tests for application
         - **exceptions.py** - custom exceptions
         - **forms.py** - forms and their settings

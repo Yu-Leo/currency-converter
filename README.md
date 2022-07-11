@@ -84,8 +84,7 @@ docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
    ```
 5. Run the server on a local machine
     ```bash
-    cd converter
-    python manage.py runserver
+    python3 converter/manage.py runserver
     ```
 
 <a id="chapter-3"></a>
@@ -101,18 +100,19 @@ docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
 - DBMS: **Redis**
 - Programming language: **Python (3.10.4)**
 - Frameworks and libraries:
-    - **Django (4.0.5)**
-    - **Requests (2.28.1)**
+    - **Django 4**
+    - **Requests**
+    - **Redis**
 
 #### FrontEnd:
 
-- Language: **html**, **css**
+- Languages: **HTML**, **CSS**
 - Frameworks and libraries:
     - **Bootstrap 5**
 
 #### Tools:
 
-- Docker and Docker Compose
+- **Docker** and **Docker Compose**
 
 ### :wrench: Settings
 
@@ -123,9 +123,9 @@ docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build
 - `DJANGO_DEBUG` - Run in DEBUG mode or not (set 1 or 0). Default 0.
 - `DJANGO_SECRET_KEY` - SECRET_KEY for the Django config
 - Settings for Redis:
-    - `REDIS_HOST` - database host (`redis` for run using docker-compose and `127.0.0.1` for run on a local
+    - `REDIS_HOST` - redis host (`redis` for run using docker-compose and `127.0.0.1` for run on a local
       machine)
-    - `REDIS_PORT` - database port (default `6379`)
+    - `REDIS_PORT` - redis port (default `6379`)
     - `REDIS_DB` - database index (default `0`)
 
 #### services/settings.py
