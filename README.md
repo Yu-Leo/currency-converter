@@ -147,26 +147,6 @@ Logs saving to the `converter/logs.log` file.
 2022-07-11 07:55:37,503 - CRITICAL - views.py - getting data error
 ```
 
-### :coffee: Tests
-
-Run all tests (run in the outer `converter` folder):
-
-```bash
-./manage.py test converter.tests
-```
-
-Using `coverage`:
-
-```bash
-coverage run ./manage.py test converter.tests
-```
-
-With report page generation:
-
-```bash
-coverage run ./manage.py test converter.tests && coverage html
-```
-
 <a id="chapter-5"></a>
 
 ## :open_hands: License
