@@ -18,7 +18,7 @@ class IExchangeRateAPI(ABC):
     @abstractmethod
     def get_currencies_list(self) -> tuple[str]:
         """
-        :return: list with currencies names
+        :return: tuple with currencies names
         """
         pass
 

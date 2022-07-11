@@ -9,6 +9,9 @@ class IDatabase(ABC):
 
     def set_all_data(self, date: datetime.date, currencies_list: tuple[str],
                      currencies_values: dict[str, float]) -> None:
+        """
+        Set 'date', 'currencies_list' and 'currencies_values' to database
+        """
         pass
 
     # Currencies values
@@ -32,6 +35,9 @@ class IDatabase(ABC):
 
     @abstractmethod
     def is_currencies_list_exists(self) -> bool:
+        """
+        Checks whether there is a list of currencies in the database or not
+        """
         pass
 
     @abstractmethod
@@ -45,4 +51,7 @@ class IDatabase(ABC):
 
     @abstractmethod
     def get_date(self) -> datetime.date | None:
+        """
+        :return: date from database or None if it doesn't exist
+        """
         pass

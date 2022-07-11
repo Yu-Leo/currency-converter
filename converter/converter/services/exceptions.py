@@ -5,7 +5,7 @@ class GettingDataError(Exception):
     pass
 
 
-class ExchangeRateException(Exception):
+class ConversionError(Exception):
     """
     Exchange rate of some currency = 0
     """
@@ -15,5 +15,12 @@ class ExchangeRateException(Exception):
 class DatabaseError(Exception):
     """
     Some error in working with the database
+    """
+    pass
+
+
+class APIError(Exception):
+    """
+    Some error in getting data from API
     """
     pass
