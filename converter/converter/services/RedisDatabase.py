@@ -1,4 +1,5 @@
 import datetime
+import functools
 
 import redis
 
@@ -25,13 +26,14 @@ class RedisDatabase(IDatabase):
         Decorator, which catches all errors related to redis
         """
 
-        def _wrapper(*args, **kwargs):
+        @functools.wraps(func)
+        def inner(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
             except redis.RedisError:
                 raise exceptions.DatabaseError
 
-        return _wrapper
+        return inner
 
     @catch_exceptions
     def set_all_data(self, date: datetime.date, currencies_list: tuple[str],

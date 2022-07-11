@@ -1,4 +1,5 @@
 import datetime
+import logging
 from typing import NamedTuple
 
 from . import exceptions
@@ -6,6 +7,8 @@ from . import settings
 from .ExchangeRateAPI import ExchangeRateAPI
 from .IDatabase import IDatabase
 from .RedisDatabase import RedisDatabase
+
+logger = logging.getLogger('main')
 
 
 class Operation(NamedTuple):
@@ -20,12 +23,12 @@ def get_currencies_list() -> tuple[str]:
     """
     try:
         return _get_currencies_list_from_db()
-    except exceptions.DatabaseError:
-        # Logs
+    except exceptions.DatabaseError as db_e:
+        logger.error(db_e)
         try:
             return _get_currencies_list_from_api()
-        except exceptions.APIError:
-            # Logs
+        except exceptions.APIError as api_e:
+            logger.critical(api_e)
             raise exceptions.GettingDataError
 
 
@@ -62,12 +65,12 @@ def _get_currency_value(currency: str) -> float:
     """
     try:
         return _get_currency_value_from_db(currency)
-    except exceptions.DatabaseError:
-        # Logs
+    except exceptions.DatabaseError as db_e:
+        logger.error(db_e)
         try:
             return _get_currency_value_from_api(currency)
-        except exceptions.APIError:
-            # Logs
+        except exceptions.APIError as api_e:
+            logger.critical(api_e)
             raise exceptions.GettingDataError
 
 
@@ -103,7 +106,12 @@ def _calculate(amount: float, primary_currency_value: float, secondary_currency_
 
 
 def _update_data_in_database(database: IDatabase) -> None:
-    api = ExchangeRateAPI()
-    database.set_all_data(date=api.get_date(),
-                          currencies_list=api.get_currencies_list(),
-                          currencies_values=api.get_currencies_values())
+    try:
+        api = ExchangeRateAPI()
+    except exceptions.APIError as api_e:
+        logger.critical(api_e)
+        raise exceptions.GettingDataError
+    else:
+        database.set_all_data(date=api.get_date(),
+                              currencies_list=api.get_currencies_list(),
+                              currencies_values=api.get_currencies_values())
